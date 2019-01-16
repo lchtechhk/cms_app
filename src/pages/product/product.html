@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>
+          <!-- Shop -->
+          {{ 'Shop' | translate }}
+      </ion-title>
+  
+      <ion-buttons left>
+          <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        </ion-buttons>
+
+      <ion-buttons right>
+        <button ion-button icon-only class="cart-button" (click)="openCart()">
+          <ion-icon name="cart">
+            <ion-badge color="secondary">{{shared.cartquantity}}</ion-badge>
+
+          </ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  
+    <ion-toolbar class="toolbar-secondary">
+      <ion-slides slidesPerView="{{pageNumber}}" dir="{{shared.dir}}">
+        <ion-slide [class.selected]="selectedTab==''" *ngIf="shared.subCategories!=null" (click)="changeTab('')">{{ 'All' | translate }}</ion-slide>
+  
+        <ion-slide [class.selected]="selectedTab==c.id" *ngFor="let c of shared.subCategories" (click)="changeTab(c)">
+          {{c.name}}
+        </ion-slide>
+      </ion-slides>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content class="page-products" (ionScroll)="onScroll($event)">
+  <ion-grid *ngIf="productView=='grid'">
+    <ion-col *ngFor="let p of products" col-6>
+      <product [data]="p" [type]="'normal'"></product>
+    </ion-col>
+
+    <ion-col *ngIf="products.length==0 && !httpRunning" col-12 class="animated fadeIn">
+      <h6 text-center>{{ 'No Products Found!' | translate }}</h6>
+    </ion-col>
+  </ion-grid>
+
+  <ion-infinite-scroll #infinite (ionInfinite)="getProducts($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  
+</ion-content>
+
+

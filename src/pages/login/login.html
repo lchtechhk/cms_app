@@ -1,0 +1,50 @@
+
+<ion-header>
+
+  <ion-navbar hideBackButton="true"> 
+    <ion-buttons left>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{Login | translate}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="page-login" padding>
+  <ion-row class="grid-t">
+    <ion-col style="margin-top:10%;">
+      <div class="logo">
+        <img class="image" src="assets/icons_stripe.svg"/>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <form #loginForm="ngForm" class="form" (ngSubmit)="login()">
+    <ion-row class="grid-b">
+      <ion-col col-12>
+        <ion-list >
+
+          <ion-item>
+            <ion-input type="text" placeholder="{{ 'Email' | translate }}" name="email" [(ngModel)]="formData.email" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input type="password" placeholder="{{ 'Password' | translate }}" name="password" [(ngModel)]="formData.password" required></ion-input>
+          </ion-item>
+
+        </ion-list>
+      </ion-col>
+      <ion-col col-12>
+        <label *ngIf="errorMessage!=''">
+          <span>{{errorMessage}}</span>
+        </label>
+      </ion-col>
+      <ion-col col-12>
+        <button ion-button block color="secondary" type="submit" [disabled]="!loginForm.form.valid">Login</button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

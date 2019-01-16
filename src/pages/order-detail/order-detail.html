@@ -1,0 +1,112 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{'Order Details'| translate }}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="page-order">
+  <ion-card>
+    <ion-card-header>
+      {{'Receiver Name' | translate}}
+    </ion-card-header>
+    <ion-card-content>
+      {{orderDetail.customers_name}}
+    </ion-card-content>
+  </ion-card>
+  <ion-card style="margin-top:10px;">
+    <ion-card-header>
+      {{'Shipping Address' | translate}}
+    </ion-card-header>
+    <ion-card-content>
+      {{orderDetail.delivery_street_address}}
+    </ion-card-content>
+  </ion-card>
+  <ion-card style="margin-top:10px;">
+    <ion-card-header>
+      {{'Contact Number' | translate}}
+    </ion-card-header>
+    <ion-card-content>
+      {{orderDetail.customers_telephone}}
+    </ion-card-content>
+  </ion-card>
+  <ion-card style="margin-top:10px;">
+    <ion-card-header>
+      {{'Payment Method' | translate}}
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="orderDetail.payment_method == 'cash_on_delivery'">{{'Cash On Delivery' | translate }}</div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card style="margin-top:10px;">
+    <ion-card-header>
+      {{'Order Notes' | translate}}
+    </ion-card-header>
+    <ion-card-content>
+      <ion-input type="text" placeholder="{{'Note to the buyer'|translate}}" name="note" [(ngModel)]="orderDetail.customer_remark"></ion-input>
+    </ion-card-content>
+  </ion-card>
+  <ion-card class="order-product" style="margin-top:10px;">
+    <ion-card-header>
+      {{'Product'|translate}}
+    </ion-card-header>
+    <ion-card-content *ngFor="let product of products">
+      <ion-row>
+        <h3>{{product.products_name}}
+          <br>
+          <small>{{product.categories_name}}</small>
+        </h3>
+      </ion-row>
+      <ion-item>
+
+        <ion-thumbnail item-start>
+          <img class="cart_image" src="{{config.imgUrl+product.image}}">
+        </ion-thumbnail>
+        <ion-row>
+          <ion-col col-6>{{'Price'|translate}}&nbsp;:&nbsp;</ion-col>
+          <ion-col col-6>{{product.products_price| currency }}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col col-6>{{'Qty'|translate}}&nbsp;:&nbsp;</ion-col>
+          <ion-col col-6>{{product.products_quantity}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col col-6>
+            <strong>{{'Total Price'|translate}}</strong>&nbsp;:&nbsp;</ion-col>
+          <ion-col col-6>
+            <strong>{{product.final_price| currency}}</strong>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-card style="margin-top:10px;">
+    <ion-card-header>
+      {{'Summary'|translate}}
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col col-6>
+          {{'Product Price'|translate}}
+        </ion-col>
+        <ion-col col-6 text-right>
+          {{orderDetail.order_price| currency}}
+        </ion-col>
+        <ion-col col-6>
+          {{'Shipping Cost'|translate}}
+        </ion-col>
+        <ion-col col-6 text-right>
+          {{0| currency}}
+        </ion-col>
+        <ion-col col-6>
+          {{'Total Price'|translate}}
+        </ion-col>
+        <ion-col col-6 text-right>
+          {{orderDetail.order_price+0| currency}}
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

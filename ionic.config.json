@@ -1,0 +1,7 @@
+{
+  "name": "cms_app",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
